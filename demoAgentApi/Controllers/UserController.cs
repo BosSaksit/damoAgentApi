@@ -12,9 +12,9 @@ namespace demoAgentApi.Controllers
     public class UserController : ControllerBase
     {
         public static List<User> data = new List<User>{
-            new User {Id = 1,Name = "getter",Tel = "0841543232",Address = "15/78 testewsf",Idcard = "1231654868"},
-             new User {Id = 2,Name = "p gotf",Tel = "094646494",Address = "12/78 gergrege",Idcard = "1644611316"},
-              new User {Id = 3,Name = "bosjazz",Tel = "0972743145",Address = "1/78 fewfwe",Idcard = "1101554868"}
+            new User {Id = "1",Name = "getter",Tel = "0841543232",Address = "15/78 testewsf",Idcard = "1231654868"},
+             new User {Id = "2",Name = "p gotf",Tel = "094646494",Address = "12/78 gergrege",Idcard = "1644611316"},
+              new User {Id = "3",Name = "bosjazz",Tel = "0972743145",Address = "1/78 fewfwe",Idcard = "1101554868"}
         };
         // GET api/values
         [HttpGet]
@@ -25,31 +25,44 @@ namespace demoAgentApi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<User> GetbyId(int id)
+        public ActionResult<User> GetbyId(string id)
         {
-            return data.FirstOrDefault(it => it.Id == id);
+            return data.FirstOrDefault(it => it.Id == id.ToString());
         }
 
         // POST api/values
         [HttpPost]
-        public void AddUser(User model)
+        public User AddUser([FromBody] User Userx)
         {
-            var id = data.Max(it => it.Id) +1;
-            model.Id = id;
-            data.Add(model);
+            var id = Guid.NewGuid().ToString();
+            var item = new User
+            {
+                Id = id,
+                Name = Userx.Name,
+                Tel = Userx.Tel,
+                Address = Userx.Address,
+                Idcard = Userx.Idcard,
+            };
+
+            data.Add(item);
+
+            // User.Id = id;
+
+            // data.Add(Userx);
+            return Userx;
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void EditUser(int id, [FromBody] string value)
+        public void EditUser(string id, [FromBody] string value)
         {
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void DeleteUser(int id)
+        public void DeleteUser(string id)
         {
-            var delete = data.FirstOrDefault(it => it.Id == id);
+            var delete = data.FirstOrDefault(it => it.Id == id.ToString());
             data.Remove(delete);
         }
     }

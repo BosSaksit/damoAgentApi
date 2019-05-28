@@ -2,11 +2,11 @@ namespace demoAgentApi.Models
 {
     public class User
     {
-         public int Id { get; set;}
-        public string Name {get; set;}
-        public string Tel {get; set;}
-        public string Address { get; set;}
-        public string Idcard {get; set;}
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Tel { get; set; }
+        public string Address { get; set; }
+        public string Idcard { get; set; }
         // public Order Order {get; set;}
     }
 
