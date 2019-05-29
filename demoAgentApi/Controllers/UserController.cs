@@ -54,8 +54,21 @@ namespace demoAgentApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void EditUser(string id, [FromBody] string value)
+        public User EditUser(string id, [FromBody] User Userx)
         {
+            var _id = data.FirstOrDefault(it => it.Id == id.ToString());
+             var item = new User
+            {
+                Id = id,
+                Name = Userx.Name,
+                Tel = Userx.Tel,
+                Address = Userx.Address,
+                Idcard = Userx.Idcard,
+            };
+            data.Remove(_id);
+            data.Add(item);
+            return Userx;
+
         }
 
         // DELETE api/values/5
